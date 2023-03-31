@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="container">
+    <div class="row" style=" height: 20vh;">
+
+        <div class="col text-center" style="height: 20vh; padding-top: 5vh; ">
+
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#translate-modal" style="margin-top: 10px;">Add translate +</button>
+
+                        <!-- Modal -->
+            <div class="modal fade" id="translate-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div style="background: #FAEBD7; border-bottom: solid 1px;" class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">PLACE OF TRANSLATE</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div style="background: #FAEBD7;" class="modal-body">
+                      <form method="post">
+                          {% csrf_token %}
+                          {{ form|crispy }}
+                          <p></p>
+                          <input class="btn btn-primary" type="submit" value="Send">
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" style="height: auto;">
+        <div class="col">
+        </div>
+        <div class="col-6" style="height: 72vh; overflow: auto;" >
+
+            {% for post in posts %}
+            <div class="col" style="background: #FAEBD7; border: solid; height: auto; border-radius: 25px; padding: 10px; margin-bottom: 10px;">
+                <h2 class="text-center">Title:</h2>
+                <textarea class="form-control" id="form6Example7" rows="1" readonly>{{ post.title_book }}</textarea>
+                <h4 class="text-center">Content:</h4>
+                <textarea class="form-control" id="form6Example8" rows="7" readonly>{{ post.content_book }}</textarea>
+                <h4 class="text-center">Translate:</h4>
+                <textarea class="form-control" id="form6Example9" rows="7" readonly>{{ post.translate_book }}</textarea>
+                <p></p>
+                <h4 class="text-center" style="color: #FF0000;">Mark: {{ post.mark_of_translate }}</h4>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center" style="color: red;">You must be Login.</h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

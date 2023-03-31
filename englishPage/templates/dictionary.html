@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if request.user.is_staff %}
+<div class="container">
+    <div class="row" style=" height: 20vh;">
+        <div class="col text-center" style="height: 20vh; padding-top: 5vh; ">
+
+        </div>
+    </div>
+
+    <div class="row" style="height: auto;">
+        <div class="col">
+        </div>
+        <div class="col-6" style="height: 72vh; overflow: auto;" >
+
+            {% for post in posts %}
+            <div class="col" style="background: #FAEBD7; border: solid; height: auto; border-radius: 25px; padding: 10px; margin-bottom: 10px;">
+                <h2 class="text-center">Words:</h2>
+                <textarea class="form-control" id="form6Example7" rows="10" readonly>{{ post.translate_book }}</textarea>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center" style="color: red;">You are not staff.</h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
